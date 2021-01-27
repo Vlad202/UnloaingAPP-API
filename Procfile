@@ -1,1 +1,2 @@
-web: gunicorn djangoProject.wsgi:application --log-file - --log-level debug
+release: python manage.py migrate --no-input
+web: gunicorn project_name.wsgi
