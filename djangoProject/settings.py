@@ -8,7 +8,7 @@ SECRET_KEY = '=@xh=f+4_h+q0k(zhry1x*5+iv$gmi&7+tu13qx+q5(_q%crc6'
 
 DEBUG = True
 
-ALLOWED_HOSTS =  ['localhost', '127.0.0.1', 'https://api-clientsapp.herokuapp.com/']
+ALLOWED_HOSTS =  ['localhost', '127.0.0.1', 'api-clientsapp.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -92,6 +92,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+STATIC_DIR=os.path.join(BASE_DIR,'static')
+MEDIA_DIR=os.path.join(BASE_DIR,"media")
 
 LANGUAGE_CODE = 'en-us'
 
