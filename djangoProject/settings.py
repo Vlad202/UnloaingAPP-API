@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = '=@xh=f+4_h+q0k(zhry1x*5+iv$gmi&7+tu13qx+q5(_q%crc6'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS =  ['localhost', '127.0.0.1', 'https://api-clientsapp.herokuapp.com/']
 
