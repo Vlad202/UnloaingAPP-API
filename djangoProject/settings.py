@@ -1,13 +1,14 @@
 from pathlib import Path
+# import django_heroku
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = '=@xh=f+4_h+q0k(zhry1x*5+iv$gmi&7+tu13qx+q5(_q%crc6'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = '*'
+ALLOWED_HOSTS =  ['localhost', '127.0.0.1', 'https://api-clientsapp.herokuapp.com/']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -103,3 +104,5 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+# django_heroku.settings(locals())
