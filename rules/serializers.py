@@ -24,3 +24,8 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(password)
         token = Token.objects.create(user=user)
         return user
+
+class UsersListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'

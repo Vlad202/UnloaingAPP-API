@@ -22,13 +22,13 @@ class ClientCreate(generics.CreateAPIView):
 class CliensList(generics.ListAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
 
 class UnLoadingCreate(generics.CreateAPIView):
     queryset = UnLoading.objects.all()
     serializer_class = UnLoadingSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         # request.data._mutable = True
@@ -42,7 +42,7 @@ class UnLoadingCreate(generics.CreateAPIView):
 class UpdatePaid(APIView):
     queryset = UnLoading.objects.all()
     serializer_class = UnLoadingUpdateSerializer
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         unloading = UnLoading.objects.filter(id=request.data['id']).first()
@@ -59,12 +59,12 @@ class UpdatePaid(APIView):
 class UnloadingList(generics.ListAPIView):
     queryset = UnLoading.objects.all()
     serializer_class = UnLoadingListSerializer
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAuthenticated, )
 
 class UnloadingClientList(generics.ListAPIView):
     queryset = UnLoading.objects.all()
     serializer_class = UnLoadingListSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request, client_id):
         client = Client.objects.filter(id=client_id).first()

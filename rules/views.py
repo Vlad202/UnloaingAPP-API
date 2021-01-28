@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from django.contrib.auth.models import User
 from rest_framework.views import APIView
-from .serializers import UserSerializer, UserColorSerializer
+from .serializers import UserSerializer, UserColorSerializer, UsersListSerializer
 from .models import UserColor
 from django.contrib.auth.models import User
 
@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (AllowAny, )
+    permission_classes = (IsAdminUser, )
 
     def post(self, request):
         color = request.data.pop('color')
@@ -27,3 +27,8 @@ class UserCreate(generics.CreateAPIView):
                 return Response({'success': True})
             # return Response(serializer.data)
         return Response(serializer.errors)
+
+class UserCreate(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UsersListSerializer
+    permission_classes = (IsAdminUser, )
