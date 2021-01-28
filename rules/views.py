@@ -32,3 +32,12 @@ class UsersList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UsersListSerializer
     permission_classes = (IsAdminUser, )
+
+class UserPermission(APIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request):
+        permission = request.user.is_superuser
+        return Response({'is_superuser': permission})
