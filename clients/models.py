@@ -7,7 +7,7 @@ class Client(models.Model):
 
 class UnLoading(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    details = models.TextField()
+    details = models.TextField(default='')
     date = models.DateField(auto_now_add=True)
     price = models.PositiveIntegerField()
     alredy_paid = models.PositiveIntegerField(default=0)

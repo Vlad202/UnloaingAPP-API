@@ -20,7 +20,7 @@ class ClientCreate(generics.CreateAPIView):
         return Response(serializer.errors)
 
 class CliensList(generics.ListAPIView):
-    queryset = Client.objects.all()
+    queryset = reversed(Client.objects.all())
     serializer_class = ClientSerializer
     permission_classes = (IsAuthenticated, )
 
@@ -57,7 +57,7 @@ class UpdatePaid(APIView):
         return Response({'error': 'can`t update model'})
 
 class UnloadingList(generics.ListAPIView):
-    queryset = UnLoading.objects.all()
+    queryset = reversed(UnLoading.objects.all())
     serializer_class = UnLoadingListSerializer
     permission_classes = (IsAuthenticated, )
 
@@ -70,7 +70,7 @@ class UnloadingClientList(generics.ListAPIView):
         client = Client.objects.filter(id=client_id).first()
         if client:
             # try:
-            unloads = UnLoading.objects.filter(client=client)
+            unloads = reversed(UnLoading.objects.filter(client=client))
             serializer = UnLoadingListSerializer(unloads, many=True)
             data = serializer.data
             debt = 0
@@ -78,7 +78,7 @@ class UnloadingClientList(generics.ListAPIView):
                 to_pay = i['price'] + debt
                 debt = to_pay - i['alredy_paid']
                 i['debt'] = debt
-            return Response(data )
+            return Response(data)
             # except:
             #     pass
         return Response({'error': 'can`t filter model'})
