@@ -26,6 +26,9 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 class UsersListSerializer(serializers.ModelSerializer):
+    color = serializers.SerializerMethodField(read_only=True, source='get_color')
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('is_superuser', 'username', 'first_name', 'last_name', 'email', 'color', )
+    def get_color(self, obj):
+        return UserColor.objects.filter(user=obj).first().color

@@ -28,7 +28,7 @@ class UserCreate(generics.CreateAPIView):
             # return Response(serializer.data)
         return Response(serializer.errors)
 
-class UserCreate(generics.ListAPIView):
+class UsersList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UsersListSerializer
     permission_classes = (IsAdminUser, )
