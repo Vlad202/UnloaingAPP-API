@@ -7,7 +7,7 @@ from .models import Client, UnLoading
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = ('name', 'description', )
+        fields = ('id', 'name', 'description', )
 
     def create(self, validated_data):
         client = Client.objects.create(**validated_data)
