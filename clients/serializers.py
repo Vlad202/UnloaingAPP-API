@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from .models import Client, UnLoading
 # from rules.serializers import UserSerializer
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 
 
 class ClientSerializer(serializers.ModelSerializer):
@@ -36,8 +36,14 @@ class UnLoadingUpdateSerializer(serializers.ModelSerializer):
         model = UnLoading
         fields = ('id', 'alredy_paid', )
 
+class UnLoadingUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username', )
+
 class UnLoadingListSerializer(serializers.ModelSerializer):
     client = serializers.SerializerMethodField(read_only=True, source='get_client')
+    workers = UnLoadingUserSerializer(read_only=True, many=True)
     class Meta:
         model = UnLoading
         fields = '__all__'
@@ -45,4 +51,4 @@ class UnLoadingListSerializer(serializers.ModelSerializer):
     def get_client(self, obj):
         client = Client.objects.get(id=obj.client.pk)
         return client.name
-        
+

@@ -75,6 +75,7 @@ class UnloadingClientList(generics.ListAPIView):
             data = serializer.data
             debt = 0
             for i in data:
+                # print(i['workers'])
                 to_pay = i['price'] + debt
                 debt = to_pay - i['alredy_paid']
                 i['debt'] = debt
