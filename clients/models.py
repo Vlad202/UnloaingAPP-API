@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Client(models.Model):
@@ -11,3 +12,4 @@ class UnLoading(models.Model):
     date = models.DateField(auto_now_add=True)
     price = models.PositiveIntegerField()
     alredy_paid = models.PositiveIntegerField(default=0)
+    workers = models.ManyToManyField(User)

@@ -19,12 +19,16 @@ class UnLoadingSerializer(serializers.ModelSerializer):
     # client = serializers.PrimaryKeyRelatedField()
     class Meta:
         model = UnLoading
-        fields = ('client', 'details', 'price', 'alredy_paid', )
+        fields = ('client', 'details', 'price', 'alredy_paid', 'workers', )
 
     def create(self, validated_data):
         client = validated_data.pop('client')
+        workers = validated_data.pop('workers')
         # client_obj = Client.objects.filter(pk=client).first()
         unloading = UnLoading.objects.create(client=client, **validated_data)
+        for i in workers:
+            # worker = User.objects.filter(pk=i).first()
+            unloading.workers.add(i)
         return unloading
 
 class UnLoadingUpdateSerializer(serializers.ModelSerializer):
