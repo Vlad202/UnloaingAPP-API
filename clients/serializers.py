@@ -4,6 +4,7 @@ from rest_framework.authtoken.models import Token
 from .models import Client, UnLoading
 # from rules.serializers import UserSerializer
 from django.contrib.auth.models import User
+from rules.models import UserColor
 
 
 class ClientSerializer(serializers.ModelSerializer):
@@ -37,9 +38,12 @@ class UnLoadingUpdateSerializer(serializers.ModelSerializer):
         fields = ('id', 'alredy_paid', )
 
 class UnLoadingUserSerializer(serializers.ModelSerializer):
+    color = serializers.SerializerMethodField(read_only=True, source='get_color')
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', )
+        fields = ('first_name', 'last_name', 'username', 'color', )
+    def get_color(self, obj):
+        return UserColor.objects.filter(user=obj).first().color
 
 class UnLoadingListSerializer(serializers.ModelSerializer):
     client = serializers.SerializerMethodField(read_only=True, source='get_client')
