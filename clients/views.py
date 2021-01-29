@@ -45,16 +45,16 @@ class UpdatePaid(APIView):
     permission_classes = (IsAuthenticated, )
 
     def post(self, request):
-        unloading = UnLoading.objects.filter(id=request.data['id']).first()
-        if unloading:
-            try:
-                unloading.alredy_paid = request.data['alredy_paid']
-                unloading.save()
-                serializer = UnLoadingUpdateSerializer(unloading)
-                return Response(serializer.data)
-            except:
-                pass
-        return Response({'error': 'can`t update model'})
+        error = Response({'error': 'can`t update model'})
+        try:
+            unloading = UnLoading.objects.get(id=request.data['id'])
+            unl_sum = unloading.alredy_paid + int(request.data['alredy_paid'])
+            unloading.alredy_paid = unl_sum
+            unloading.save()
+            serializer = UnLoadingUpdateSerializer(unloading)
+            return Response(serializer.data)
+        except:
+            return error
 
 class UnloadingList(generics.ListAPIView):
     queryset = UnLoading.objects.all()
