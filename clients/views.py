@@ -20,7 +20,7 @@ class ClientCreate(generics.CreateAPIView):
         return Response(serializer.errors)
 
 class CliensList(generics.ListAPIView):
-    queryset = reversed(Client.objects.all())
+    queryset = Client.objects.all()
     serializer_class = ClientSerializer
     permission_classes = (IsAuthenticated, )
 
@@ -57,7 +57,7 @@ class UpdatePaid(APIView):
         return Response({'error': 'can`t update model'})
 
 class UnloadingList(generics.ListAPIView):
-    queryset = reversed(UnLoading.objects.all())
+    queryset = UnLoading.objects.all()
     serializer_class = UnLoadingListSerializer
     permission_classes = (IsAuthenticated, )
 
