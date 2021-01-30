@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from .serializers import ClientSerializer, UnLoadingSerializer, UnLoadingUpdateSerializer, UnLoadingListSerializer
 from .models import Client, UnLoading
+from rest_framework import status
 
 
 class ClientCreate(generics.CreateAPIView):
@@ -17,7 +18,7 @@ class ClientCreate(generics.CreateAPIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CliensList(generics.ListAPIView):
     queryset = Client.objects.all()
@@ -37,7 +38,7 @@ class UnLoadingCreate(generics.CreateAPIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UpdatePaid(APIView):
     queryset = UnLoading.objects.all()
@@ -45,7 +46,7 @@ class UpdatePaid(APIView):
     permission_classes = (IsAuthenticated, )
 
     def post(self, request):
-        error = Response({'error': 'can`t update model'})
+        error = Response({'error': 'can`t update model'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             unloading = UnLoading.objects.get(id=request.data['id'])
             unl_sum = unloading.alredy_paid + int(request.data['alredy_paid'])
@@ -82,4 +83,4 @@ class UnloadingClientList(generics.ListAPIView):
             return Response(data)
             # except:
             #     pass
-        return Response({'error': 'can`t filter model'})
+        return Response({'error': 'can`t filter model'}, status=status.HTTP_400_BAD_REQUEST)

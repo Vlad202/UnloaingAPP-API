@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer, UserColorSerializer, UsersListSerializer
 from .models import UserColor
 from django.contrib.auth.models import User
+from rest_framework import status
 
 
 class UserCreate(generics.CreateAPIView):
@@ -26,12 +27,12 @@ class UserCreate(generics.CreateAPIView):
                 serializer_color.save()
                 return Response({'success': True})
             # return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UsersList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UsersListSerializer
-    permission_classes = (IsAdminUser, )
+    permission_classes = (IsAuthenticated, )
 
 class UserPermission(APIView):
     queryset = User.objects.all()
