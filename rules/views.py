@@ -27,7 +27,7 @@ class UserCreate(generics.CreateAPIView):
                 serializer_color.save()
                 return Response({'success': True})
             # return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors)
 
 class UsersList(generics.ListAPIView):
     queryset = User.objects.all()
