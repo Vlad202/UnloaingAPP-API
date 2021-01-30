@@ -32,8 +32,6 @@ class UnLoadingCreate(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request):
-        # request.data._mutable = True
-        # request.data['client'] = Clients
         serializer = UnLoadingSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
