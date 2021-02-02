@@ -64,7 +64,7 @@ class UnloadingClientList(generics.ListAPIView):
         client = Client.objects.filter(id=client_id).first()
         if client:
             # try:
-            unloads = reversed(UnLoading.objects.filter(client=client))
+            unloads = UnLoading.objects.filter(client=client)
             serializer = UnLoadingListSerializer(unloads, many=True)
             data = serializer.data
             debt = 0
@@ -76,7 +76,7 @@ class UnloadingClientList(generics.ListAPIView):
                     to_pay = i['price'] + debt
                 debt = to_pay - i['alredy_paid']
                 i['debt'] = debt
-            return Response(data)
+            return Response(reversed(data))
             # except:
             #     pass
         return Response({'error': 'can`t filter model'}, status=status.HTTP_400_BAD_REQUEST)
