@@ -25,17 +25,20 @@ class UnLoadingSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         client = validated_data.pop('client')
         workers = validated_data.pop('workers')
-        # client_obj = Client.objects.filter(pk=client).first()
         unloading = UnLoading.objects.create(client=client, **validated_data)
         for i in workers:
-            # worker = User.objects.filter(pk=i).first()
             unloading.workers.add(i)
         return unloading
 
 class UnLoadingUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = UnLoading
-        fields = ('id', 'alredy_paid', )
+        fields = ('client', 'alredy_paid', )
+
+    def create(self, validated_data):
+        client = validated_data.pop('client')
+        unloading = UnLoading.objects.create(client=client, **validated_data)
+        return unloading
 
 class UnLoadingUserSerializer(serializers.ModelSerializer):
     color = serializers.SerializerMethodField(read_only=True, source='get_color')

@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from .serializers import ClientSerializer, UnLoadingSerializer, UnLoadingUpdateSerializer, UnLoadingListSerializer
 from .models import Client, UnLoading
 from rest_framework import status
-
+import datetime
 
 class ClientCreate(generics.CreateAPIView):
     queryset = Client.objects.all()
@@ -38,22 +38,17 @@ class UnLoadingCreate(generics.CreateAPIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class UpdatePaid(APIView):
+class UpdatePaid(generics.CreateAPIView):
     queryset = UnLoading.objects.all()
     serializer_class = UnLoadingUpdateSerializer
     permission_classes = (IsAuthenticated, )
 
     def post(self, request):
-        error = Response({'error': 'can`t update model'}, status=status.HTTP_400_BAD_REQUEST)
-        try:
-            unloading = UnLoading.objects.get(id=request.data['id'])
-            unl_sum = unloading.alredy_paid + int(request.data['alredy_paid'])
-            unloading.alredy_paid = unl_sum
-            unloading.save()
-            serializer = UnLoadingUpdateSerializer(unloading)
+        serializer = UnLoadingUpdateSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
             return Response(serializer.data)
-        except:
-            return error
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UnloadingList(generics.ListAPIView):
     queryset = UnLoading.objects.all()
@@ -74,8 +69,11 @@ class UnloadingClientList(generics.ListAPIView):
             data = serializer.data
             debt = 0
             for i in data:
-                # print(i['workers'])
-                to_pay = i['price'] + debt
+                date = datetime.datetime.strptime(i['date'], '%Y-%m-%d')
+                i['date'] = date.strftime('%d-%m-%Y')
+                to_pay = debt
+                if i['price']:
+                    to_pay = i['price'] + debt
                 debt = to_pay - i['alredy_paid']
                 i['debt'] = debt
             return Response(data)
