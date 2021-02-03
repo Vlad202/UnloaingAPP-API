@@ -51,9 +51,13 @@ class UpdatePaid(generics.CreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UnloadingList(generics.ListAPIView):
-    queryset = reversed(UnLoading.objects.all())
+    queryset = UnLoading.objects.all()
     serializer_class = UnLoadingListSerializer
     permission_classes = (IsAuthenticated, )
+
+    def get(self, request):
+        serializer = UnLoadingListSerializer(self.queryset.all(), many=True)
+        return Response(reversed(serializer.data))
 
 class UnloadingClientList(generics.ListAPIView):
     queryset = UnLoading.objects.all()
