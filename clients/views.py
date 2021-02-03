@@ -51,7 +51,7 @@ class UpdatePaid(generics.CreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UnloadingList(generics.ListAPIView):
-    queryset = UnLoading.objects.all()
+    queryset = reversed(UnLoading.objects.all())
     serializer_class = UnLoadingListSerializer
     permission_classes = (IsAuthenticated, )
 

@@ -9,7 +9,7 @@ SECRET_KEY = '=@xh=f+4_h+q0k(zhry1x*5+iv$gmi&7+tu13qx+q5(_q%crc6'
 
 DEBUG = True
 
-ALLOWED_HOSTS =  ['localhost', '127.0.0.1', 'api-clients-app.herokuapp.com']
+ALLOWED_HOSTS =  ['localhost', '192.168.0.103', '127.0.0.1', 'api-clients-app.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
