@@ -79,7 +79,7 @@ class UnloadingClientList(generics.ListAPIView):
                 if i['price']:
                     to_pay = i['price'] + debt
                 debt = to_pay - i['alredy_paid']
-                i['debt'] = debt
+                i['debt'] = round(debt, 2)
             return Response(reversed(data))
             # except:
             #     pass
