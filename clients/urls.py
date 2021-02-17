@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
 from clients import views as clients_views
@@ -9,4 +10,17 @@ urlpatterns = [
     path('unloading/all/', clients_views.UnloadingList.as_view()),
     path('unloading/update/', clients_views.UpdatePaid.as_view()),
     path('unloading/list/<int:client_id>/', clients_views.UnloadingClientList.as_view()),
+=======
+from django.urls import path
+from rest_framework.authtoken.views import obtain_auth_token
+from clients import views as clients_views
+
+urlpatterns = [
+    path('add/', clients_views.ClientCreate.as_view()),
+    path('all/', clients_views.CliensList.as_view()),
+    path('unloading/add/', clients_views.UnLoadingCreate.as_view()),
+    path('unloading/all/', clients_views.UnloadingList.as_view()),
+    path('unloading/update/', clients_views.UpdatePaid.as_view()),
+    path('unloading/list/<int:client_id>/', clients_views.UnloadingClientList.as_view()),
+>>>>>>> 28db349d9fc26775f91308aec53ddc052260599d
 ]

@@ -10,3 +10,12 @@ pytz==2020.5
 sqlparse==0.4.1
 static3==0.7.0
 whitenoise==5.2.0
+<<<<<<< HEAD
+=======
+django-heroku==0.3.1
+psycopg2==2.8.6
+requests==2.25.1
+sqlparse==0.4.1
+virtualenv==20.2.1
+zipp==3.4.0
+>>>>>>> 28db349d9fc26775f91308aec53ddc052260599d
