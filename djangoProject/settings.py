@@ -1,11 +1,12 @@
 from pathlib import Path
 # import django_heroku
 import os
+from .local_settings import SECRET_KEY_LOCAL, DB_SETTINGS
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = '=@xh=f+4_h+q0k(zhry1x*5+iv$gmi&7+tu13qx+q5(_q%crc6'
+SECRET_KEY = SECRET_KEY_LOCAL
 
 DEBUG = True
 
@@ -83,11 +84,11 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'de1b53e5hf4ala',
-        'USER': 'tvzqsexfybqktk',
-        'PASSWORD': 'a888194ef874efeb046781ce504c9acb7c0e2db98036c5bfbb93bd89395104a3',
-        'HOST': 'ec2-54-164-241-193.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'NAME': DB_SETTINGS['default']['NAME'],
+        'USER': DB_SETTINGS['default']['USER'],
+        'PASSWORD': DB_SETTINGS['default']['PASSWORD'],
+        'HOST': DB_SETTINGS['default']['HOST'],
+        'PORT': DB_SETTINGS['default']['PORT'],
     }
 }
 
