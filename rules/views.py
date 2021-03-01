@@ -42,3 +42,15 @@ class UserPermission(APIView):
     def get(self, request):
         permission = request.user.is_superuser
         return Response({'is_superuser': permission})
+
+class DeleteUser(APIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (IsAdminUser,)
+
+    def get(self, request, id):
+        try:
+            User.objects.get(pk=id).delete()
+            return Response({'seccess': True}, status=status.HTTP_200_OK)
+        except:
+            return Response({'error': 'cant find the model'}, status=status.HTTP_404_NOT_FOUND)

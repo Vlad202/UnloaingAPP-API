@@ -20,4 +20,4 @@ class UnLoading(models.Model):
     workers = models.ManyToManyField(User, blank=True)
 
     def __str__(self):
-        return '{} {}, Цена: {}, Заплачено: {}'.format(self.client.name, self.date, self.price, self.alredy_paid)
+        return 'ID-{} | {} {}, Цена: {}, Заплачено: {}'.format(self.id, self.client.name, self.date, self.price, self.alredy_paid)

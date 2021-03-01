@@ -8,6 +8,7 @@ from .models import Client, UnLoading
 from rest_framework import status
 import datetime
 
+
 class ClientCreate(generics.CreateAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
@@ -23,8 +24,7 @@ class ClientCreate(generics.CreateAPIView):
 class CliensList(generics.ListAPIView):
     queryset = Client.objects.order_by('name')
     serializer_class = ClientSerializer
-    permission_classes = (IsAuthenticated, )
-
+    permission_classes = (AllowAny, )
 
 class UnLoadingCreate(generics.CreateAPIView):
     queryset = UnLoading.objects.all()
@@ -89,3 +89,27 @@ class UnloadingClientList(generics.ListAPIView):
             # except:
             #     pass
         return Response({'error': 'can`t filter model'}, status=status.HTTP_400_BAD_REQUEST)
+
+class DeleteUnloading(APIView):
+    queryset = UnLoading.objects.all()
+    serializer_class = UnLoadingSerializer
+    permission_classes = (IsAdminUser,)
+
+    def get(self, request, id):
+        try:
+            UnLoading.objects.get(pk=id).delete()
+            return Response({'seccess': True}, status=status.HTTP_200_OK)
+        except:
+            return Response({'error': 'cant find the model'}, status=status.HTTP_404_NOT_FOUND)
+
+class DeleteClient(APIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+    permission_classes = (IsAdminUser,)
+
+    def get(self, request, id):
+        try:
+            Client.objects.get(pk=id).delete()
+            return Response({'seccess': True}, status=status.HTTP_200_OK)
+        except:
+            return Response({'error': 'cant find the model'}, status=status.HTTP_404_NOT_FOUND)
