@@ -3,8 +3,4 @@ env/
 __pycache__/
 *.sqlite3
 dump.json
-<<<<<<< HEAD
-djangoProject/local_settings.py
-=======
-djangoProject/local_settings.py
->>>>>>> ed73a365776eceda6e8c7d6b748ad8e8fc192876
+src/djangoProject/local_settings.py
