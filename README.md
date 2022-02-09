@@ -1,3 +1,4 @@
 # UnloaingAPP-API
-API для мобильного приложения по контролю отгрузок товара.
-Мобильное приложение [здесь](https://github.com/Vlad202/UnloaingAPP/)
+
+API for mobile app to control shipment of goods.
+The mobile app is [here](https://github.com/Vlad202/UnloaingAPP/)
