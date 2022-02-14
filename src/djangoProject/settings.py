@@ -10,12 +10,7 @@ SECRET_KEY = SECRET_KEY_LOCAL
 
 DEBUG = True if os.environ.get('DJANGO_DEBUG') == "TRUE" else False
 
-ALLOWED_HOSTS =  [
-    'localhost', 
-    '192.168.0.102', 
-    '127.0.0.1', 
-    'api-clients-app.herokuapp.com',
-    ]
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
