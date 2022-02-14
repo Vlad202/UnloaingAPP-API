@@ -10,3 +10,9 @@ There are some needed environment variables:
 - POSTGRES_HOST - database hostname;
 - POSTGRES_PORT - database port;
 - DJANGO_DEBUG - debugging in django, `TRUE` or `FALSE`.
+
+## Deployment
+
+Prerequisites:
+ - ubuntu instance;
+ - set up jenkins server with credentials and a pipeline reffered to `Jenkinsfile`;
