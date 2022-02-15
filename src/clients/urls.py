@@ -4,7 +4,7 @@ from clients import views as clients_views
 
 urlpatterns = [
     # lists
-    path('all/', clients_views.CliensList.as_view()),
+    path('all1/', clients_views.CliensList.as_view()),
     path('unloading/all/', clients_views.UnloadingList.as_view()),
     path('unloading/list/<int:client_id>/', clients_views.UnloadingClientList.as_view()),
     # adds
